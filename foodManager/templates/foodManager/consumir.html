@@ -18,18 +18,13 @@
 </head>
 
 <body>
-    <h1>Productos</h1>
+    <h1>Producto</h1>
 
-    {% for i in inventarios %}
-
-        <div>
-            <p>{{ i.producto.nombre }}</p>
-            <p>Cantidad Actual => {{ i.cantidadActual }}</p>
-            <p>Veces Consumido => {{ i.stock }}</p>
-            <a href="{% url 'consumir_producto' pk=i.producto.nombre %}">+</a>
-        </div>
-
-    {% endfor %}
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

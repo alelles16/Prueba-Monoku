@@ -6,3 +6,11 @@ class Producto (models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Inventario (models.Model):
+    producto = models.ForeignKey('Producto')
+    cantidadActual = models.IntegerField()
+    stock = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.producto.nombre
