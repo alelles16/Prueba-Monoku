@@ -1,44 +1,65 @@
-{% load staticfiles %}
+{% extends 'foodManager/base.html' %}
 
-<!doctype html>
-<html lang="es">
+{% block content %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">Lista de Productos Disponibles</h6>
+        </div>
+    </div>
 
-    <link rel="stylesheet" href="{% static 'css/foodManager.css' %}">
+    <div class="my-3 list bg-white rounded box-shadow">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
+        {% for i in inventarios %}
 
-    <title>Food Manager</title>
-</head>
+            <div class="media mb-3 text-muted border-bottom border-gray d-flex justify-content-between align-items-baseline">
 
-<body>
-    <h1>Productos</h1>
+                <p class="media-body pb-4 mb-0 small lh-125">
 
-    {% for i in inventarios %}
+                    <strong class="text-gray-dark">{{ i.producto.nombre }}</strong>
 
-        <div>
-            <p>{{ i.producto.nombre }}</p>
-            <p>Cantidad Actual => {{ i.cantidadActual }}</p>
-            <p>Veces Consumido => {{ i.stock }}</p>
-            <a href="{% url 'consumir_producto' pk=i.producto.nombre %}">+</a>
+                    <span>|</span>
+
+                    {{ i.producto.marca }}
+
+                    <span>|</span>
+
+                    <strong> {{ i.cantidadActual }} unidad(es) disponible(s) </strong>
+                </p>
+
+                <a class="u-button" href="{% url 'consumir_producto' pk=i.producto.nombre %}"><i class="fas fa-utensils mr-1"></i> Consumir</a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">Producto más consumido</h6>
+        </div>
+    </div>
+
+    <div class="my-3 list bg-white rounded box-shadow">
+
+        <div class="media mb-3 text-muted border-bottom border-gray d-flex justify-content-between align-items-baseline">
+
+            <p class="media-body pb-4 mb-0 small lh-125">
+
+                <strong class="text-gray-dark">{{ masconsumido.producto.nombre }}</strong>
+
+                <span>|</span>
+
+                {{ masconsumido.producto.marca }}
+
+                <span>|</span>
+
+                <strong>Veces consumido : {{ masconsumido.stock }} </strong>
+            </p>
+
         </div>
 
-    {% endfor %}
+    </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+{% endblock %}

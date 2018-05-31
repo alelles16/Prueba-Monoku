@@ -5,8 +5,9 @@ from .forms import InventarioForm
 # Create your views here.
 
 def productos_list (request):
-    inventarios = Inventario.objects.order_by('cantidadActual')
-    return render(request, 'foodManager/productos_list.html', {'inventarios': inventarios})
+    inventarios = Inventario.objects.order_by('-stock')
+    masconsumido = inventarios[0]
+    return render(request, 'foodManager/productos_list.html', {'inventarios': inventarios, 'masconsumido':masconsumido})
 
 def consumir_producto (request,pk):
     producto = get_object_or_404(Producto, nombre=pk)
